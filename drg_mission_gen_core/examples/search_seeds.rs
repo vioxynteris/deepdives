@@ -11,7 +11,7 @@ fn main() {
         if _hard.missions[0].primary_objective != EObjective::OBJ_1st_Escort {             // EObjective can be used to fetch primary or secondary objective (in this case, Escort primary)
             continue;                                                                      // see src\data.rs for full list of objective names
         }
-         if _hard.missions[1].primary_objective != EObjective::OBJ_1st_PointExtraction {
+         if _hard.missions[1].primary_objective != EObjective::OBJ_1st_Extraction {
             continue;
         }
          if _hard.missions[1].dna != EMissionDNA::DNA_2_01 {                               // EMissionDNA allows you to specify objective by length/complexity,
