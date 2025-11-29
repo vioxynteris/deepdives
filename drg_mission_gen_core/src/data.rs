@@ -524,8 +524,8 @@ pub enum EMissionDNA {                         // most of these seem readable en
     DNA_Star_Medium,                           // Elimination (2 Dreadnoughts)
     DNA_Tutorial,
     DNA_Web_Large,                             // Deep Scan (5 Crystals)
-    DNA_Web_Medium,                            // Deep Scan (2 Crystals)
-    DNA_Web_Small,                             // Deep Scan (2 Crystals)
+    DNA_Web_Medium,                            // Deep Scan (3 Crystals)
+    DNA_Web_Small,                             // Deep Scan (3 Crystals)
 }
 
 #[derive(Debug)]
@@ -1110,6 +1110,39 @@ impl EObjective {
     }
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
+pub enum ObjectiveInstance {
+    Elimination {
+        kind: EObjective,
+        targets: Vec<EDreadnought>,
+    },
+    Other {
+        kind: EObjective,
+    },
+}
+
+impl ObjectiveInstance {
+    pub fn objective(&self) -> EObjective {
+        match self {
+            ObjectiveInstance::Elimination { kind, .. } | ObjectiveInstance::Other { kind } => {
+                *kind
+            }
+        }
+    }
+
+    pub fn from_objective(kind: EObjective) -> Self {
+        match kind {
+            EObjective::OBJ_Eliminate_Eggs | EObjective::OBJ_DD_Elimination_Eggs => {
+                ObjectiveInstance::Elimination {
+                    kind,
+                    targets: vec![],
+                }
+            }
+            _ => ObjectiveInstance::Other { kind },
+        }
+    }
+}
+
 impl EMissionMutator {
     pub fn is_banned_objective(self, obj: EObjective) -> bool {
         match self {
@@ -1161,6 +1194,15 @@ impl EMissionWarning {
         }
         .contains(&mutator)
     }
+}
+
+#[derive(
+    Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, VariantArray, Serialize, Deserialize,
+)]
+pub enum EDreadnought {
+    Dreadnought,
+    Hiveguard,
+    Twins,
 }
 
 #[derive(
@@ -1219,8 +1261,8 @@ pub struct UGeneratedMission {
     pub seed: u32,
     pub template: EMissionTemplate,
     pub biome: EBiome,
-    pub primary_objective: EObjective,
-    pub secondary_objectives: Vec<EObjective>,
+    pub primary_objective: ObjectiveInstance,
+    pub secondary_objectives: Vec<ObjectiveInstance>,
     pub mutators: Vec<EMissionMutator>,
     pub warnings: Vec<EMissionWarning>,
     pub complexity_limit: Option<EMissionComplexity>,

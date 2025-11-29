@@ -1,4 +1,5 @@
 use time::OffsetDateTime;
+use drg_mission_gen_core::EDreadnought;
 
 use crate::cleaned_deep_dive::{
     Complexity, DeepDive, DeepDiveSecondaryObjective, Duration, Mission, Mutator, PrimaryObjective,
@@ -6,8 +7,8 @@ use crate::cleaned_deep_dive::{
 };
 use crate::deep_dive_pair::DeepDivePair;
 
-/// Format the deep dive information according to what the usual #deep-dive-discussion weekly
-/// post uses. Uses DRG main discord emojis.
+// Output for the weekly Deep Dive info post in the DRG Discord,
+// and uses their formatting with emojis included.
 pub(crate) fn format_discord(
     pair: &DeepDivePair,
     start_datetime: OffsetDateTime,
@@ -23,7 +24,7 @@ pub(crate) fn format_discord(
 
     format!(
         "\
-        Weekly Deep Dives information for **{start_date} to {end_date}**\n\
+        Weekly Deep Dives information for **{start_date} to {end_date}**.\n\
         Deep Dives will reset **<t:{end_timestamp}:f>**\n\
         :Deep_Dive: __**DEEP DIVE**__ :Deep_Dive:\n\
         {dd_info}\n\n\
@@ -117,21 +118,29 @@ fn format_primary_objective(
         PrimaryObjective::Salvage => {
             format!(":molly: {}", obj.display_detailed(complexity, duration))
         }
-        PrimaryObjective::Elimination => {
-            format!(":dreadegg: {}", obj.display_detailed(complexity, duration))
+        PrimaryObjective::Elimination { ref targets } => {
+            let target_str = format_elimination_targets(targets);
+            format!(
+                ":dreadegg: {} {}",
+                obj.display_detailed(complexity, duration),
+                target_str
+            )
         }
     }
 }
 
-fn format_secondary_objective(obj: &DeepDiveSecondaryObjective) -> &'static str {
+fn format_secondary_objective(obj: &DeepDiveSecondaryObjective) -> String {
     match obj {
-        DeepDiveSecondaryObjective::Eggs => ":gegg: 2 Eggs",
-        DeepDiveSecondaryObjective::DeepScan => ":pingdrg: 2 Resonance Crystals",
-        DeepDiveSecondaryObjective::Blackbox => ":uplink: Black Box",
-        DeepDiveSecondaryObjective::Dreadnought => ":dreadegg: Dreadnought (TBA)",
-        DeepDiveSecondaryObjective::Morkite => ":morkite: 150 Morkite",
-        DeepDiveSecondaryObjective::Pumpjack => ":refinerywell: Liquid Morkite Well",
-        DeepDiveSecondaryObjective::Minimules => ":molly: 2 Mini-M.U.L.E.s",
+        DeepDiveSecondaryObjective::Eggs => ":gegg: 2 Eggs".to_string(),
+        DeepDiveSecondaryObjective::DeepScan => ":pingdrg: 2 Resonance Crystals".to_string(),
+        DeepDiveSecondaryObjective::Blackbox => ":uplink: Black Box".to_string(),
+        DeepDiveSecondaryObjective::Dreadnought { targets } => {
+            let target_str = format_elimination_targets(targets);
+            format!(":dreadegg: {}", target_str)
+        }
+        DeepDiveSecondaryObjective::Morkite => ":morkite: 150 Morkite".to_string(),
+        DeepDiveSecondaryObjective::Pumpjack => ":refinerywell: Liquid Morkite Well".to_string(),
+        DeepDiveSecondaryObjective::Minimules => ":molly: 2 Mini-M.U.L.E.s".to_string(),
     }
 }
 
@@ -141,4 +150,23 @@ fn format_mutator(mutator: Mutator) -> String {
 
 fn format_warning(warning: Warning) -> String {
     format!(":tothebone: **{}**", warning.display())
+}
+
+fn format_enemy_descriptor(descriptor: EDreadnought) -> &'static str {
+    match descriptor {
+        EDreadnought::Dreadnought => "Classic",
+        EDreadnought::Hiveguard => "Hiveguard",
+        EDreadnought::Twins => "Twins",
+    }
+}
+
+fn format_elimination_targets(targets: &[EDreadnought]) -> String {
+    if targets.is_empty() {
+        return String::new();
+    }
+    let target_strs: Vec<&str> = targets
+        .iter()
+        .map(|t| format_enemy_descriptor(*t))
+        .collect();
+    format!("({})", target_strs.join("+"))
 }
