@@ -69,6 +69,7 @@ pub(crate) fn map_biome(biome: &EBiome) -> Biome {
         EBiome::BIOME_IceCaves => Biome::GlacialStrata,
         EBiome::BIOME_AzureWeald => Biome::AzureWeald,
         EBiome::BIOME_HollowBough => Biome::HollowBough,
+        EBiome::BIOME_OssuaryDepths => Biome::OssuaryDepths,
     }
 }
 
@@ -123,6 +124,7 @@ pub(crate) fn map_primary_objective(
                 EObjective::OBJ_1st_PointExtraction => PrimaryObjective::PointExtraction,
                 EObjective::OBJ_1st_Refinery => PrimaryObjective::Refinery,
                 EObjective::OBJ_1st_Salvage => PrimaryObjective::Salvage,
+                EObjective::OBJ_Excavation_C => PrimaryObjective::HeavyExcavation,
                 unexpected_obj => {
                     return Err(CleanError::UnexpectedPrimaryObjective(
                         unexpected_obj.into(),
@@ -159,6 +161,7 @@ pub(crate) fn map_secondary_objective(
                 EObjective::OBJ_DD_Morkite => DeepDiveSecondaryObjective::Morkite,
                 EObjective::OBJ_DD_MorkiteWell => DeepDiveSecondaryObjective::Pumpjack,
                 EObjective::OBJ_DD_RepairMinimules => DeepDiveSecondaryObjective::Minimules,
+                EObjective::OBJ_DD_Excavation => DeepDiveSecondaryObjective::Excavation,
                 unexpected_obj => {
                     return Err(CleanError::UnexpectedSecondaryObjective(
                         unexpected_obj.into(),
@@ -212,6 +215,7 @@ pub(crate) fn map_warning(warnings: &[EMissionWarning]) -> Result<Option<Warning
                 EMissionWarning::WRN_InfestedEnemies => Warning::Parasites,
                 EMissionWarning::WRN_Swarmagedon => Warning::Swarmageddon,
                 EMissionWarning::WRN_RivalIncursion => Warning::RivalPresence,
+                EMissionWarning::WRN_PitJawColony => Warning::PitJawColony,
             };
             Ok(Some(warning))
         }

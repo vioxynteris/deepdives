@@ -40,10 +40,16 @@ impl EPlanetZone {
                         duration: EMissionDuration::MD_Duration_Normal,
                         can_have_mutators: false,
                     },
+                    FRequiredMissionItem {
+                        mission_template: EMissionTemplate::MissionType_Excavation,
+                        complexity: EMissionComplexity::MD_Complexity_Average,
+                        duration: EMissionDuration::MD_Duration_Short,
+                        can_have_mutators: false,
+                    },
                 ],
             },
             EPlanetZone::PZ_Zone02 => &UPlanetZone {
-                biomes: &[EBiome::BIOME_RadioactiveZone, EBiome::BIOME_FungusBogs],
+                biomes: &[EBiome::BIOME_RadioactiveZone, EBiome::BIOME_FungusBogs, EBiome::BIOME_OssuaryDepths],
                 required_missions: &[
                     FRequiredMissionItem {
                         mission_template: EMissionTemplate::MissionType_Extraction,
@@ -53,6 +59,12 @@ impl EPlanetZone {
                     },
                     FRequiredMissionItem {
                         mission_template: EMissionTemplate::MissionType_Salvage,
+                        complexity: EMissionComplexity::MD_Complexity_Average,
+                        duration: EMissionDuration::MD_Duration_Normal,
+                        can_have_mutators: false,
+                    },
+                    FRequiredMissionItem {
+                        mission_template: EMissionTemplate::MissionType_Excavation,
                         complexity: EMissionComplexity::MD_Complexity_Average,
                         duration: EMissionDuration::MD_Duration_Normal,
                         can_have_mutators: false,
@@ -125,6 +137,7 @@ pub enum EBiome {
     BIOME_IceCaves,                                            // Glacial Strata
     BIOME_AzureWeald,                                          // Azure Weald
     BIOME_HollowBough,                                         // Hollow Bough
+    BIOME_OssuaryDepths,                                       // Ossuary Depths
 }
 
 impl EBiome {
@@ -155,9 +168,12 @@ impl EBiome {
                 planet_zone_selection_weight: 1.0,
             },
             EBiome::BIOME_AzureWeald => &UBiome {
-                planet_zone_selection_weight: 2.0,
+                planet_zone_selection_weight: 1.0,
             },
             EBiome::BIOME_HollowBough => &UBiome {
+                planet_zone_selection_weight: 1.0,
+            },
+            EBiome::BIOME_OssuaryDepths => &UBiome {
                 planet_zone_selection_weight: 1.0,
             },
         }
@@ -209,6 +225,7 @@ pub enum EMissionTemplate {
     MissionType_Refinery,                                      // On-Site Refining
     MissionType_Facility,                                      // Industrial Sabotage
     MissionType_DeepScan,                                      // Deep Scan
+    MissionType_Excavation,                                    // Heavy Excavation
 }
 
 impl EMissionTemplate {
@@ -235,6 +252,7 @@ impl EMissionTemplate {
                         EObjective::OBJ_DD_RepairMinimules,
                         EObjective::OBJ_DD_DeepScan,
                         EObjective::OBJ_DD_MorkiteWell,
+                        EObjective::OBJ_DD_Excavation,
                     ],
                     dna: &[
                         EMissionDNA::DNA_2_01,
@@ -268,6 +286,7 @@ impl EMissionTemplate {
                         EObjective::OBJ_DD_Defense,
                         EObjective::OBJ_DD_DeepScan,
                         EObjective::OBJ_DD_MorkiteWell,
+                        EObjective::OBJ_DD_Excavation,
                     ],
                     dna: &[
                         EMissionDNA::DNA_Motherlode_Long,
@@ -297,6 +316,7 @@ impl EMissionTemplate {
                         EObjective::OBJ_DD_RepairMinimules,
                         EObjective::OBJ_DD_DeepScan,
                         EObjective::OBJ_DD_MorkiteWell,
+                        EObjective::OBJ_DD_Excavation,
                     ],
                     dna: &[
                         EMissionDNA::DNA_Fractured_Medium,
@@ -319,6 +339,7 @@ impl EMissionTemplate {
                         EObjective::OBJ_2nd_Mine_Hollomite,
                         EObjective::OBJ_2nd_DestroyBhaBarnacles,
                         EObjective::OBJ_2nd_DestroyEggs,
+                        EObjective::OBJ_DD_Excavation,
                     ],
                     deep_dive_objectives: &[
                         EObjective::OBJ_DD_AlienEggs,
@@ -352,6 +373,7 @@ impl EMissionTemplate {
                         EObjective::OBJ_DD_Elimination_Eggs,
                         EObjective::OBJ_DD_DeepScan,
                         EObjective::OBJ_DD_MorkiteWell,
+                        EObjective::OBJ_DD_Excavation,
                     ],
                     dna: &[
                         EMissionDNA::DNA_SalvageFractured_Complex,
@@ -380,6 +402,7 @@ impl EMissionTemplate {
                         EObjective::OBJ_DD_RepairMinimules,
                         EObjective::OBJ_DD_DeepScan,
                         EObjective::OBJ_DD_MorkiteWell,
+                        EObjective::OBJ_DD_Excavation,
                     ],
                     dna: &[
                         EMissionDNA::DNA_Escort_MediumAverage,
@@ -411,6 +434,7 @@ impl EMissionTemplate {
                         EObjective::OBJ_DD_Elimination_Eggs,
                         EObjective::OBJ_DD_Defense,
                         EObjective::OBJ_DD_DeepScan,
+                        EObjective::OBJ_DD_Excavation,
                     ],
                     dna: &[
                         EMissionDNA::DNA_Refinery_Medium,
@@ -464,8 +488,40 @@ impl EMissionTemplate {
                         EObjective::OBJ_DD_RepairMinimules,
                         EObjective::OBJ_DD_AlienEggs,
                         EObjective::OBJ_DD_MorkiteWell,
+                        EObjective::OBJ_DD_Excavation,
                     ],
                     dna: &[EMissionDNA::DNA_Web_Small, EMissionDNA::DNA_Web_Medium],
+                },
+                rarity: 1.0,
+            },
+            EMissionTemplate::MissionType_Excavation => &FMissionTemplateItem {
+                mission_template: UMissionTemplate {
+                    primary_objective: EObjective::OBJ_Excavation_C,
+                    secondary_objectives: &[
+                        EObjective::OBJ_2nd_KillFleas,
+                        EObjective::OBJ_2nd_Find_Gunkseed,
+                        EObjective::OBJ_2nd_Find_Ebonut,
+                        EObjective::OBJ_2nd_Find_ApocaBloom,
+                        EObjective::OBJ_2nd_Find_BooloCap,
+                        EObjective::OBJ_2nd_Mine_Hollomite,
+                        EObjective::OBJ_2nd_Find_Fossil,
+                        EObjective::OBJ_2nd_DestroyBhaBarnacles,
+                        EObjective::OBJ_2nd_DestroyEggs,
+                    ],
+                    deep_dive_objectives: &[
+                        EObjective::OBJ_DD_AlienEggs,
+                        EObjective::OBJ_DD_Elimination_Eggs,
+                        EObjective::OBJ_DD_Defense,
+                        EObjective::OBJ_DD_RepairMinimules,
+                        EObjective::OBJ_DD_DeepScan,
+                        EObjective::OBJ_DD_MorkiteWell,
+                    ],
+                    dna: &[
+                        EMissionDNA::DNA_Wheel_Medium,
+                        EMissionDNA::DNA_Wheel_MediumComplex,
+                        EMissionDNA::DNA_Wheel_ShortAverage,
+                        EMissionDNA::DNA_Wheel_ShortComplex,
+                    ],
                 },
                 rarity: 1.0,
             },
@@ -526,6 +582,10 @@ pub enum EMissionDNA {                         // most of these seem readable en
     DNA_Web_Large,                             // Deep Scan (5 Crystals)
     DNA_Web_Medium,                            // Deep Scan (3 Crystals)
     DNA_Web_Small,                             // Deep Scan (3 Crystals)
+    DNA_Wheel_Medium,                          // Heavy Excavation (3 Resinite Deposits)
+    DNA_Wheel_MediumComplex,                   // Heavy Excavation (3 Resinite Deposits)
+    DNA_Wheel_ShortAverage,                    // Heavy Excavation (2 Resinite Deposits)
+    DNA_Wheel_ShortComplex,                    // Heavy Excavation (2 Resinite Deposits)
 }
 
 #[derive(Debug)]
@@ -673,6 +733,26 @@ impl EMissionDNA {
                 complexity: EMissionComplexity::MD_Complexity_Average,
                 weight: 1.0,
             },
+            EMissionDNA::DNA_Wheel_Medium => &UMissionDNA {
+                duration: EMissionDuration::MD_Duration_Normal,
+                complexity: EMissionComplexity::MD_Complexity_Average,
+                weight: 1.0,
+            },
+            EMissionDNA::DNA_Wheel_MediumComplex => &UMissionDNA {
+                duration: EMissionDuration::MD_Duration_Normal,
+                complexity: EMissionComplexity::MD_Complexity_Complex,
+                weight: 1.0,
+            },
+            EMissionDNA::DNA_Wheel_ShortAverage => &UMissionDNA {
+                duration: EMissionDuration::MD_Duration_Short,
+                complexity: EMissionComplexity::MD_Complexity_Average,
+                weight: 1.0,
+            },
+            EMissionDNA::DNA_Wheel_ShortComplex => &UMissionDNA {
+                duration: EMissionDuration::MD_Duration_Short,
+                complexity: EMissionComplexity::MD_Complexity_Complex,
+                weight: 1.0,
+            },
         }
     }
 }
@@ -746,6 +826,7 @@ pub fn get_deep_dive_settings() -> &'static UDeepDiveSettings {
             EMissionWarning::WRN_BulletHell,
             EMissionWarning::WRN_RockInfestation,
             EMissionWarning::WRN_BulletHell,
+            EMissionWarning::WRN_PitJawColony,
         ],
     }
 }
@@ -777,6 +858,7 @@ pub struct FDeepDiveTemplateItem {
     pub can_only_appear_once_per_deep_dive_set: bool,
 }
 
+// Heavy Excavation isn't actually in the DD templates yet but I'm going to assume this is right. If it's not then I'm cancelling my birthday party
 pub fn get_normal_template() -> &'static UDeepDiveTemplate {
     &UDeepDiveTemplate {
         mutator_count: FRandInterval {
@@ -879,6 +961,14 @@ pub fn get_normal_template() -> &'static UDeepDiveTemplate {
                 probability: 10,
                 allowed_durations: &[EMissionDuration::MD_Duration_Short],
                 allowed_complexities: &[EMissionComplexity::MD_Complexity_Average],
+                can_only_appear_once: false,
+                can_only_appear_once_per_deep_dive_set: false,
+            },
+            FDeepDiveTemplateItem {
+                mission: EMissionTemplate::MissionType_Excavation,
+                probability: 10,
+                allowed_durations: &[],
+                allowed_complexities: &[],
                 can_only_appear_once: false,
                 can_only_appear_once_per_deep_dive_set: false,
             },
@@ -985,6 +1075,14 @@ pub fn get_hard_template() -> &'static UDeepDiveTemplate {
                 can_only_appear_once: false,
                 can_only_appear_once_per_deep_dive_set: false,
             },
+            FDeepDiveTemplateItem {
+                mission: EMissionTemplate::MissionType_Excavation,
+                probability: 10,
+                allowed_durations: &[],
+                allowed_complexities: &[],
+                can_only_appear_once: false,
+                can_only_appear_once_per_deep_dive_set: false,
+            },
         ],
     }
 }
@@ -1030,8 +1128,10 @@ pub enum EObjective {                          // Annotated for Deep Dive second
     OBJ_DD_Morkite,                            // 150 Morkite
     OBJ_DD_MorkiteWell,                        // Liquid Morkite Well
     OBJ_DD_RepairMinimules,                    // 2 Mini-M.U.L.E.s (no uplink)
+    OBJ_DD_Excavation,                         // 1 Resinite Deposit
     OBJ_Eliminate_Eggs,
     OBJ_Elimination_Base,
+    OBJ_Excavation_C,
     OBJ_Extraction_Base,
     OBJ_FindItems_Base,
     OBJ_Gather_Gems_Base,
@@ -1095,6 +1195,7 @@ pub enum EMissionWarning {                     // Annotated for Deep Dive warnin
     WRN_InfestedEnemies,                       // Parasites
     WRN_Swarmagedon,                           // Swarmageddon
     WRN_RivalIncursion,                        // Rival Presence
+    WRN_PitJawColony,                          // Pit Jaw Colony
 }
 
 impl EObjective {
@@ -1215,6 +1316,7 @@ pub enum ESeason {
     Season3,
     Season4,
     Season5,
+    Season6,
 }
 
 impl ESeason {
@@ -1240,6 +1342,9 @@ impl ESeason {
             },
             ESeason::Season5 => &USeason {
                 mission_map_event_zone_type: ESeasonMissionMapOverlayType::None,
+            },
+            ESeason::Season6 => &USeason {
+            mission_map_event_zone_type: ESeasonMissionMapOverlayType::None,
             },
         }
     }

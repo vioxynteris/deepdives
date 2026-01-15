@@ -26,6 +26,7 @@ pub(crate) enum Biome {
     GlacialStrata,
     AzureWeald,
     HollowBough,
+    OssuaryDepths,
 }
 
 impl Biome {
@@ -41,6 +42,7 @@ impl Biome {
             Biome::GlacialStrata => "Glacial Strata",
             Biome::AzureWeald => "Azure Weald",
             Biome::HollowBough => "Hollow Bough",
+            Biome::OssuaryDepths => "Ossuary Depths",
         }
     }
 }
@@ -78,6 +80,7 @@ pub(crate) enum PrimaryObjective {
     PointExtraction,
     Refinery,
     Salvage,
+    HeavyExcavation,
     Elimination { targets: Vec<EDreadnought> },
 }
 
@@ -92,6 +95,7 @@ impl PrimaryObjective {
             PrimaryObjective::PointExtraction => "Point Extraction",
             PrimaryObjective::Refinery => "On-Site Refinery",
             PrimaryObjective::Salvage => "Salvage Operation",
+            PrimaryObjective::HeavyExcavation => "Heavy Excavation",
             PrimaryObjective::Elimination { .. } => "Elimination",
         }
     }
@@ -168,6 +172,15 @@ impl PrimaryObjective {
                     ),
                 }
             },
+            PrimaryObjective::HeavyExcavation => match (duration, complexity) {
+                (Duration::Short, Complexity::Average) => "2 Resinite Deposits".to_string(),
+                (Duration::Short, Complexity::Complex) => "2 Resinite Deposits".to_string(),
+                (Duration::Normal, Complexity::Average) => "3 Resinite Deposits".to_string(),
+                (Duration::Normal, Complexity::Complex) => "3 Resinite Deposits".to_string(),
+                (dur, comp) => unreachable!(
+                    "unexpected deep scan duration/complexity combination: duration={dur:?}, complexity={comp:?}",
+                ),
+            },
             PrimaryObjective::Elimination { targets } => {
                 format_elimination_targets(targets)
                 // match (duration, complexity) {
@@ -191,6 +204,7 @@ pub(crate) enum DeepDiveSecondaryObjective {
     Morkite,
     Pumpjack,
     Minimules,
+    Excavation,
 }
 
 impl DeepDiveSecondaryObjective {
@@ -205,6 +219,7 @@ impl DeepDiveSecondaryObjective {
             DeepDiveSecondaryObjective::Morkite => "150 Morkite".to_string(),
             DeepDiveSecondaryObjective::Pumpjack => "Liquid Morkite Well".to_string(),
             DeepDiveSecondaryObjective::Minimules => "2 Mini-M.U.L.E.s".to_string(),
+            DeepDiveSecondaryObjective::Excavation => "Resinite Mass".to_string(),
         }
     }
 }
@@ -247,6 +262,7 @@ pub(crate) enum Warning {
     Parasites,
     Swarmageddon,
     RivalPresence,
+    PitJawColony,
 }
 
 impl Warning {
@@ -267,6 +283,7 @@ impl Warning {
             Warning::Parasites => "Parasites",
             Warning::Swarmageddon => "Swarmageddon",
             Warning::RivalPresence => "Rival Presence",
+            Warning::PitJawColony => "Pit Jaw Colony",
         }
     }
 }
