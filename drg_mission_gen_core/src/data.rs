@@ -510,7 +510,7 @@ impl EMissionTemplate {
                     ],
                     deep_dive_objectives: &[
                         EObjective::OBJ_DD_AlienEggs,
-                        EObjective::OBJ_DD_Elimination_Eggs,
+                        EObjective::OBJ_DD_Morkite,            // the MissionType file actually lists Morkite twice, but I assume that is an error
                         EObjective::OBJ_DD_Defense,
                         EObjective::OBJ_DD_RepairMinimules,
                         EObjective::OBJ_DD_DeepScan,
