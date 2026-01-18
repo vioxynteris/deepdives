@@ -225,7 +225,7 @@ pub enum EMissionTemplate {
     MissionType_Refinery,                                      // On-Site Refining
     MissionType_Facility,                                      // Industrial Sabotage
     MissionType_DeepScan,                                      // Deep Scan
-    MissionType_Excavation,                                    // Heavy Excavation
+    MissionType_Excavation,                                    // Heavy Extraction
 }
 
 impl EMissionTemplate {
@@ -582,10 +582,10 @@ pub enum EMissionDNA {                         // most of these seem readable en
     DNA_Web_Large,                             // Deep Scan (5 Crystals)
     DNA_Web_Medium,                            // Deep Scan (3 Crystals)
     DNA_Web_Small,                             // Deep Scan (3 Crystals)
-    DNA_Wheel_Medium,                          // Heavy Excavation (3 Resinite Deposits)
-    DNA_Wheel_MediumComplex,                   // Heavy Excavation (3 Resinite Deposits)
-    DNA_Wheel_ShortAverage,                    // Heavy Excavation (2 Resinite Deposits)
-    DNA_Wheel_ShortComplex,                    // Heavy Excavation (2 Resinite Deposits)
+    DNA_Wheel_Medium,                          // Heavy Extraction (3 Resinite Masses)
+    DNA_Wheel_MediumComplex,                   // Heavy Extraction (3 Resinite Masses)
+    DNA_Wheel_ShortAverage,                    // Heavy Extraction (2 Resinite Masses)
+    DNA_Wheel_ShortComplex,                    // Heavy Extraction (2 Resinite Masses)
 }
 
 #[derive(Debug)]
@@ -858,7 +858,7 @@ pub struct FDeepDiveTemplateItem {
     pub can_only_appear_once_per_deep_dive_set: bool,
 }
 
-// Heavy Excavation isn't actually in the DD templates yet but I'm going to assume this is right. If it's not then I'm cancelling my birthday party
+// Heavy Extraction isn't actually in the DD templates yet but I'm going to assume this is right. If it's not then I'm cancelling my birthday party
 pub fn get_normal_template() -> &'static UDeepDiveTemplate {
     &UDeepDiveTemplate {
         mutator_count: FRandInterval {

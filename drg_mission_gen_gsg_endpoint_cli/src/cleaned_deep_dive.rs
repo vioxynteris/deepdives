@@ -80,7 +80,7 @@ pub(crate) enum PrimaryObjective {
     PointExtraction,
     Refinery,
     Salvage,
-    HeavyExcavation,
+    HeavyExtraction,
     Elimination { targets: Vec<EDreadnought> },
 }
 
@@ -95,7 +95,7 @@ impl PrimaryObjective {
             PrimaryObjective::PointExtraction => "Point Extraction",
             PrimaryObjective::Refinery => "On-Site Refinery",
             PrimaryObjective::Salvage => "Salvage Operation",
-            PrimaryObjective::HeavyExcavation => "Heavy Excavation",
+            PrimaryObjective::HeavyExtraction => "Heavy Extraction",
             PrimaryObjective::Elimination { .. } => "Elimination",
         }
     }
@@ -172,11 +172,11 @@ impl PrimaryObjective {
                     ),
                 }
             },
-            PrimaryObjective::HeavyExcavation => match (duration, complexity) {
-                (Duration::Short, Complexity::Average) => "2 Resinite Deposits".to_string(),
-                (Duration::Short, Complexity::Complex) => "2 Resinite Deposits".to_string(),
-                (Duration::Normal, Complexity::Average) => "3 Resinite Deposits".to_string(),
-                (Duration::Normal, Complexity::Complex) => "3 Resinite Deposits".to_string(),
+            PrimaryObjective::HeavyExtraction => match (duration, complexity) {
+                (Duration::Short, Complexity::Average) => "2 Resinite Masses".to_string(),
+                (Duration::Short, Complexity::Complex) => "2 Resinite Masses".to_string(),
+                (Duration::Normal, Complexity::Average) => "3 Resinite Masses".to_string(),
+                (Duration::Normal, Complexity::Complex) => "3 Resinite Masses".to_string(),
                 (dur, comp) => unreachable!(
                     "unexpected deep scan duration/complexity combination: duration={dur:?}, complexity={comp:?}",
                 ),

@@ -118,7 +118,7 @@ fn format_primary_objective(
         PrimaryObjective::Salvage => {
             format!(":molly: {}", obj.display_detailed(complexity, duration))
         }
-        PrimaryObjective::HeavyExcavation => {
+        PrimaryObjective::HeavyExtraction => {
             format!(":rosette: {}", obj.display_detailed(complexity, duration))
         }
         PrimaryObjective::Elimination { ref targets } => {
@@ -144,7 +144,7 @@ fn format_secondary_objective(obj: &DeepDiveSecondaryObjective) -> String {
         DeepDiveSecondaryObjective::Morkite => ":morkite: 150 Morkite".to_string(),
         DeepDiveSecondaryObjective::Pumpjack => ":refinerywell: Liquid Morkite Well".to_string(),
         DeepDiveSecondaryObjective::Minimules => ":molly: 2 Mini-M.U.L.E.s".to_string(),
-        DeepDiveSecondaryObjective::Excavation => ":rosette: Resinite Deposit".to_string(),
+        DeepDiveSecondaryObjective::Excavation => ":rosette: Resinite Mass".to_string(),
     }
 }
 

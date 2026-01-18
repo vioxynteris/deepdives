@@ -124,7 +124,7 @@ pub(crate) fn map_primary_objective(
                 EObjective::OBJ_1st_PointExtraction => PrimaryObjective::PointExtraction,
                 EObjective::OBJ_1st_Refinery => PrimaryObjective::Refinery,
                 EObjective::OBJ_1st_Salvage => PrimaryObjective::Salvage,
-                EObjective::OBJ_Excavation_C => PrimaryObjective::HeavyExcavation,
+                EObjective::OBJ_Excavation_C => PrimaryObjective::HeavyExtraction,
                 unexpected_obj => {
                     return Err(CleanError::UnexpectedPrimaryObjective(
                         unexpected_obj.into(),
