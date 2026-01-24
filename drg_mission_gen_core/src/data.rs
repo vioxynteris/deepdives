@@ -827,6 +827,7 @@ pub fn get_deep_dive_settings() -> &'static UDeepDiveSettings {
             EMissionWarning::WRN_RockInfestation,
             EMissionWarning::WRN_BulletHell,
             EMissionWarning::WRN_PitJawColony,
+            EMissionWarning::WRN_ScrabNestingGrounds,
         ],
     }
 }
@@ -1196,6 +1197,7 @@ pub enum EMissionWarning {                     // Annotated for Deep Dive warnin
     WRN_Swarmagedon,                           // Swarmageddon
     WRN_RivalIncursion,                        // Rival Presence
     WRN_PitJawColony,                          // Pit Jaw Colony
+    WRN_ScrabNestingGrounds,                   // Scrab Nesting Grounds
 }
 
 impl EObjective {

@@ -216,6 +216,7 @@ pub(crate) fn map_warning(warnings: &[EMissionWarning]) -> Result<Option<Warning
                 EMissionWarning::WRN_Swarmagedon => Warning::Swarmageddon,
                 EMissionWarning::WRN_RivalIncursion => Warning::RivalPresence,
                 EMissionWarning::WRN_PitJawColony => Warning::PitJawColony,
+                EMissionWarning::WRN_ScrabNestingGrounds => Warning::ScrabNestingGrounds,
             };
             Ok(Some(warning))
         }

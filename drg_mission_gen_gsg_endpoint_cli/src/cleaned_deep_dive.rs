@@ -263,6 +263,7 @@ pub(crate) enum Warning {
     Swarmageddon,
     RivalPresence,
     PitJawColony,
+    ScrabNestingGrounds,
 }
 
 impl Warning {
@@ -284,6 +285,7 @@ impl Warning {
             Warning::Swarmageddon => "Swarmageddon",
             Warning::RivalPresence => "Rival Presence",
             Warning::PitJawColony => "Pit Jaw Colony",
+            Warning::ScrabNestingGrounds => "Scrab Nesting Grounds",
         }
     }
 }
