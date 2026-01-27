@@ -43,7 +43,7 @@ impl EPlanetZone {
                     FRequiredMissionItem {
                         mission_template: EMissionTemplate::MissionType_Excavation,
                         complexity: EMissionComplexity::MD_Complexity_Average,
-                        duration: EMissionDuration::MD_Duration_Short,
+                        duration: EMissionDuration::MD_Duration_Normal,
                         can_have_mutators: false,
                     },
                 ],
@@ -65,8 +65,8 @@ impl EPlanetZone {
                     },
                     FRequiredMissionItem {
                         mission_template: EMissionTemplate::MissionType_Excavation,
-                        complexity: EMissionComplexity::MD_Complexity_Average,
-                        duration: EMissionDuration::MD_Duration_Normal,
+                        complexity: EMissionComplexity::MD_Complexity_Complex,
+                        duration: EMissionDuration::MD_Duration_Long,
                         can_have_mutators: false,
                     },
                 ],
@@ -505,22 +505,24 @@ impl EMissionTemplate {
                         EObjective::OBJ_2nd_Find_BooloCap,
                         EObjective::OBJ_2nd_Mine_Hollomite,
                         EObjective::OBJ_2nd_Find_Fossil,
+                        EObjective::OBJ_2nd_Mine_Dystrum,
                         EObjective::OBJ_2nd_DestroyBhaBarnacles,
                         EObjective::OBJ_2nd_DestroyEggs,
                     ],
                     deep_dive_objectives: &[
                         EObjective::OBJ_DD_AlienEggs,
-                        EObjective::OBJ_DD_Morkite,            // the MissionType file actually lists Morkite twice, but I assume that is an error
+                        EObjective::OBJ_DD_Morkite,
                         EObjective::OBJ_DD_Defense,
                         EObjective::OBJ_DD_RepairMinimules,
                         EObjective::OBJ_DD_DeepScan,
                         EObjective::OBJ_DD_MorkiteWell,
+                        EObjective::OBJ_DD_Elimination_Eggs,
                     ],
                     dna: &[
+                        EMissionDNA::DNA_Wheel_Long,
+                        EMissionDNA::DNA_Wheel_LongComplex,
                         EMissionDNA::DNA_Wheel_Medium,
                         EMissionDNA::DNA_Wheel_MediumComplex,
-                        EMissionDNA::DNA_Wheel_ShortAverage,
-                        EMissionDNA::DNA_Wheel_ShortComplex,
                     ],
                 },
                 rarity: 1.0,
@@ -582,10 +584,10 @@ pub enum EMissionDNA {                         // most of these seem readable en
     DNA_Web_Large,                             // Deep Scan (5 Crystals)
     DNA_Web_Medium,                            // Deep Scan (3 Crystals)
     DNA_Web_Small,                             // Deep Scan (3 Crystals)
+    DNA_Wheel_Long,                            // Heavy Extraction (4 Resinite Masses)
+    DNA_Wheel_LongComplex,                     // Heavy Extraction (4 Resinite Masses)
     DNA_Wheel_Medium,                          // Heavy Extraction (3 Resinite Masses)
     DNA_Wheel_MediumComplex,                   // Heavy Extraction (3 Resinite Masses)
-    DNA_Wheel_ShortAverage,                    // Heavy Extraction (2 Resinite Masses)
-    DNA_Wheel_ShortComplex,                    // Heavy Extraction (2 Resinite Masses)
 }
 
 #[derive(Debug)]
@@ -733,6 +735,16 @@ impl EMissionDNA {
                 complexity: EMissionComplexity::MD_Complexity_Average,
                 weight: 1.0,
             },
+            EMissionDNA::DNA_Wheel_Long => &UMissionDNA {
+                duration: EMissionDuration::MD_Duration_Long,
+                complexity: EMissionComplexity::MD_Complexity_Average,
+                weight: 1.0,
+            },
+            EMissionDNA::DNA_Wheel_LongComplex => &UMissionDNA {
+                duration: EMissionDuration::MD_Duration_Long,
+                complexity: EMissionComplexity::MD_Complexity_Complex,
+                weight: 1.0,
+            },
             EMissionDNA::DNA_Wheel_Medium => &UMissionDNA {
                 duration: EMissionDuration::MD_Duration_Normal,
                 complexity: EMissionComplexity::MD_Complexity_Average,
@@ -740,16 +752,6 @@ impl EMissionDNA {
             },
             EMissionDNA::DNA_Wheel_MediumComplex => &UMissionDNA {
                 duration: EMissionDuration::MD_Duration_Normal,
-                complexity: EMissionComplexity::MD_Complexity_Complex,
-                weight: 1.0,
-            },
-            EMissionDNA::DNA_Wheel_ShortAverage => &UMissionDNA {
-                duration: EMissionDuration::MD_Duration_Short,
-                complexity: EMissionComplexity::MD_Complexity_Average,
-                weight: 1.0,
-            },
-            EMissionDNA::DNA_Wheel_ShortComplex => &UMissionDNA {
-                duration: EMissionDuration::MD_Duration_Short,
                 complexity: EMissionComplexity::MD_Complexity_Complex,
                 weight: 1.0,
             },
