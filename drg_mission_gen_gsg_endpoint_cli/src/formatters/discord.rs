@@ -99,7 +99,7 @@ fn format_primary_objective(
     #[allow(clippy::useless_format)]
     match obj {
         PrimaryObjective::DeepScan => {
-            format!(":pingdrg: {}", obj.display_detailed(complexity, duration))
+            format!(":ResonanceCrystal: {}", obj.display_detailed(complexity, duration))
         }
         PrimaryObjective::EscortDuty => format!(":drill: Escort Duty"),
         PrimaryObjective::MiningExpedition => {
@@ -135,7 +135,7 @@ fn format_primary_objective(
 fn format_secondary_objective(obj: &DeepDiveSecondaryObjective) -> String {
     match obj {
         DeepDiveSecondaryObjective::Eggs => ":gegg: 2 Eggs".to_string(),
-        DeepDiveSecondaryObjective::DeepScan => ":pingdrg: 2 Resonance Crystals".to_string(),
+        DeepDiveSecondaryObjective::DeepScan => ":ResonanceCrystal: 2 Resonance Crystals".to_string(),
         DeepDiveSecondaryObjective::Blackbox => ":uplink: Black Box".to_string(),
         DeepDiveSecondaryObjective::Dreadnought { targets } => {
             let target_str = format_elimination_targets(targets);
