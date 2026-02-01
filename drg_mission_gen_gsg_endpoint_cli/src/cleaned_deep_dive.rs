@@ -61,9 +61,9 @@ fn format_elimination_targets(targets: &[EDreadnought]) -> String {
     let list = targets
         .iter()
         .map(|d| match d {
-            EDreadnought::Dreadnought => "D",
-            EDreadnought::Hiveguard => "H",
-            EDreadnought::Twins => "T",
+            EDreadnought::Dreadnought => "Classic",
+            EDreadnought::Hiveguard => "Hiveguard",
+            EDreadnought::Twins => "Twins",
         })
         .collect::<Vec<_>>()
         .join("+");
@@ -173,12 +173,12 @@ impl PrimaryObjective {
                 }
             },
             PrimaryObjective::HeavyExtraction => match (duration, complexity) {
-                (Duration::Short, Complexity::Average) => "2 Resinite Masses".to_string(),
-                (Duration::Short, Complexity::Complex) => "2 Resinite Masses".to_string(),
                 (Duration::Normal, Complexity::Average) => "3 Resinite Masses".to_string(),
                 (Duration::Normal, Complexity::Complex) => "3 Resinite Masses".to_string(),
+                (Duration::Long, Complexity::Average) => "4 Resinite Masses".to_string(),
+                (Duration::Long, Complexity::Complex) => "4 Resinite Masses".to_string(),
                 (dur, comp) => unreachable!(
-                    "unexpected deep scan duration/complexity combination: duration={dur:?}, complexity={comp:?}",
+                    "unexpected heavy extraction duration/complexity combination: duration={dur:?}, complexity={comp:?}",
                 ),
             },
             PrimaryObjective::Elimination { targets } => {

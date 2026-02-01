@@ -35,12 +35,6 @@ impl EPlanetZone {
                         can_have_mutators: false,
                     },
                     FRequiredMissionItem {
-                        mission_template: EMissionTemplate::MissionType_Refinery,
-                        complexity: EMissionComplexity::MD_Complexity_Average,
-                        duration: EMissionDuration::MD_Duration_Normal,
-                        can_have_mutators: false,
-                    },
-                    FRequiredMissionItem {
                         mission_template: EMissionTemplate::MissionType_Excavation,
                         complexity: EMissionComplexity::MD_Complexity_Average,
                         duration: EMissionDuration::MD_Duration_Normal,
@@ -52,8 +46,8 @@ impl EPlanetZone {
                 biomes: &[EBiome::BIOME_RadioactiveZone, EBiome::BIOME_FungusBogs, EBiome::BIOME_OssuaryDepths],
                 required_missions: &[
                     FRequiredMissionItem {
-                        mission_template: EMissionTemplate::MissionType_Extraction,
-                        complexity: EMissionComplexity::MD_Complexity_Simple,
+                        mission_template: EMissionTemplate::MissionType_Refinery,
+                        complexity: EMissionComplexity::MD_Complexity_Average,
                         duration: EMissionDuration::MD_Duration_Normal,
                         can_have_mutators: false,
                     },
@@ -459,6 +453,7 @@ impl EMissionTemplate {
                         EObjective::OBJ_DD_RepairMinimules,
                         EObjective::OBJ_DD_DeepScan,
                         EObjective::OBJ_DD_MorkiteWell,
+                        EObjective::OBJ_DD_Excavation,
                     ],
                     dna: &[
                         EMissionDNA::DNA_Facility_Simple,
@@ -861,7 +856,6 @@ pub struct FDeepDiveTemplateItem {
     pub can_only_appear_once_per_deep_dive_set: bool,
 }
 
-// Heavy Extraction isn't actually in the DD templates yet but I'm going to assume this is right. If it's not then I'm cancelling my birthday party
 pub fn get_normal_template() -> &'static UDeepDiveTemplate {
     &UDeepDiveTemplate {
         mutator_count: FRandInterval {
