@@ -333,7 +333,6 @@ impl EMissionTemplate {
                         EObjective::OBJ_2nd_Mine_Hollomite,
                         EObjective::OBJ_2nd_DestroyBhaBarnacles,
                         EObjective::OBJ_2nd_DestroyEggs,
-                        EObjective::OBJ_DD_Excavation,
                     ],
                     deep_dive_objectives: &[
                         EObjective::OBJ_DD_AlienEggs,
@@ -342,6 +341,7 @@ impl EMissionTemplate {
                         EObjective::OBJ_DD_RepairMinimules,
                         EObjective::OBJ_DD_DeepScan,
                         EObjective::OBJ_DD_MorkiteWell,
+                        EObjective::OBJ_DD_Excavation,
                     ],
                     dna: &[EMissionDNA::DNA_Star_Complex, EMissionDNA::DNA_Star_Medium],
                 },
@@ -514,10 +514,10 @@ impl EMissionTemplate {
                         EObjective::OBJ_DD_Elimination_Eggs,
                     ],
                     dna: &[
-                        EMissionDNA::DNA_Wheel_Long,
-                        EMissionDNA::DNA_Wheel_LongComplex,
                         EMissionDNA::DNA_Wheel_Medium,
                         EMissionDNA::DNA_Wheel_MediumComplex,
+                        EMissionDNA::DNA_Wheel_Long,
+                        EMissionDNA::DNA_Wheel_LongComplex,
                     ],
                 },
                 rarity: 1.0,
@@ -579,10 +579,10 @@ pub enum EMissionDNA {                         // most of these seem readable en
     DNA_Web_Large,                             // Deep Scan (5 Crystals)
     DNA_Web_Medium,                            // Deep Scan (3 Crystals)
     DNA_Web_Small,                             // Deep Scan (3 Crystals)
-    DNA_Wheel_Long,                            // Heavy Extraction (4 Resinite Masses)
-    DNA_Wheel_LongComplex,                     // Heavy Extraction (4 Resinite Masses)
     DNA_Wheel_Medium,                          // Heavy Extraction (3 Resinite Masses)
     DNA_Wheel_MediumComplex,                   // Heavy Extraction (3 Resinite Masses)
+    DNA_Wheel_Long,                            // Heavy Extraction (4 Resinite Masses)
+    DNA_Wheel_LongComplex,                     // Heavy Extraction (4 Resinite Masses)
 }
 
 #[derive(Debug)]
@@ -822,7 +822,6 @@ pub fn get_deep_dive_settings() -> &'static UDeepDiveSettings {
             EMissionWarning::WRN_RivalIncursion,
             EMissionWarning::WRN_BulletHell,
             EMissionWarning::WRN_RockInfestation,
-            EMissionWarning::WRN_BulletHell,
             EMissionWarning::WRN_PitJawColony,
             EMissionWarning::WRN_ScrabNestingGrounds,
         ],
