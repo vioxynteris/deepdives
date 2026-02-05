@@ -35,7 +35,7 @@ impl EPlanetZone {
                         can_have_mutators: false,
                     },
                     FRequiredMissionItem {
-                        mission_template: EMissionTemplate::MissionType_Excavation,
+                        mission_template: EMissionTemplate::MissionType_Refinery,
                         complexity: EMissionComplexity::MD_Complexity_Average,
                         duration: EMissionDuration::MD_Duration_Normal,
                         can_have_mutators: false,
@@ -46,21 +46,15 @@ impl EPlanetZone {
                 biomes: &[EBiome::BIOME_RadioactiveZone, EBiome::BIOME_FungusBogs, EBiome::BIOME_OssuaryDepths],
                 required_missions: &[
                     FRequiredMissionItem {
-                        mission_template: EMissionTemplate::MissionType_Refinery,
-                        complexity: EMissionComplexity::MD_Complexity_Average,
-                        duration: EMissionDuration::MD_Duration_Normal,
-                        can_have_mutators: false,
-                    },
-                    FRequiredMissionItem {
                         mission_template: EMissionTemplate::MissionType_Salvage,
                         complexity: EMissionComplexity::MD_Complexity_Average,
                         duration: EMissionDuration::MD_Duration_Normal,
                         can_have_mutators: false,
                     },
                     FRequiredMissionItem {
-                        mission_template: EMissionTemplate::MissionType_Excavation,
-                        complexity: EMissionComplexity::MD_Complexity_Complex,
-                        duration: EMissionDuration::MD_Duration_Long,
+                        mission_template: EMissionTemplate::MissionType_EggCollection,
+                        complexity: EMissionComplexity::MD_Complexity_Average,
+                        duration: EMissionDuration::MD_Duration_Normal,
                         can_have_mutators: false,
                     },
                 ],
@@ -73,7 +67,7 @@ impl EPlanetZone {
                 ],
                 required_missions: &[
                     FRequiredMissionItem {
-                        mission_template: EMissionTemplate::MissionType_EggCollection,
+                        mission_template: EMissionTemplate::MissionType_Excavation,
                         complexity: EMissionComplexity::MD_Complexity_Average,
                         duration: EMissionDuration::MD_Duration_Normal,
                         can_have_mutators: false,
