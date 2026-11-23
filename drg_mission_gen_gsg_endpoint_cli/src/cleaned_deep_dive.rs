@@ -248,22 +248,24 @@ impl Mutator {
 #[derive(Debug, Copy, Clone, PartialEq, Serialize, Deserialize)]
 pub(crate) enum Warning {
     RegenerativeBugs,
-    EliteThreat,
-    MacteraPlague,
-    EboniteOutbreak,
-    DuckAndCover,
-    CaveLeechCluster,
-    LowOxygen,
-    LithophageOutbreak,
-    ExploderInfestation,
-    HauntedCave,
     LethalEnemies,
-    ShieldDisruption,
+    LowOxygen,
     Parasites,
+    HauntedCave,
+    CaveLeechCluster,
+    ExploderInfestation,
+    MacteraPlague,
+    ShieldDisruption,
+    EliteThreat,
     Swarmageddon,
     RivalPresence,
+    LithophageOutbreak,
+    DuckAndCover,
+    EboniteOutbreak,
     PitJawColony,
     ScrabNestingGrounds,
+    CoreCorruption
+    
 }
 
 impl Warning {
@@ -286,6 +288,7 @@ impl Warning {
             Warning::RivalPresence => "Rival Presence",
             Warning::PitJawColony => "Pit Jaw Colony",
             Warning::ScrabNestingGrounds => "Scrab Nesting Grounds",
+            Warning::CoreCorruption => "Core Corruption",
         }
     }
 }

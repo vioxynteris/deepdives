@@ -479,7 +479,10 @@ impl EMissionTemplate {
                         EObjective::OBJ_DD_MorkiteWell,
                         EObjective::OBJ_DD_Excavation,
                     ],
-                    dna: &[EMissionDNA::DNA_Web_Small, EMissionDNA::DNA_Web_Medium],
+                    dna: &[
+                        EMissionDNA::DNA_Web_Small,
+                        EMissionDNA::DNA_Web_Medium,
+                   ],
                 },
                 rarity: 1.0,
             },
@@ -1126,6 +1129,7 @@ pub enum EObjective {                          // Annotated for Deep Dive second
     OBJ_FindItems_Base,
     OBJ_Gather_Gems_Base,
     OBJ_WRN_Plague,
+    OBJ_WRN_CoreCorruption,
 }
 
 #[derive(
@@ -1187,6 +1191,7 @@ pub enum EMissionWarning {                     // Annotated for Deep Dive warnin
     WRN_RivalIncursion,                        // Rival Presence
     WRN_PitJawColony,                          // Pit Jaw Colony
     WRN_ScrabNestingGrounds,                   // Scrab Nesting Grounds
+    WRN_CoreCorruption,
 }
 
 impl EObjective {
@@ -1250,6 +1255,7 @@ impl EMissionWarning {
         match self {
             EMissionWarning::WRN_Plague => [EObjective::OBJ_1st_Escort].as_slice(),
             EMissionWarning::WRN_NoOxygen => [EObjective::OBJ_1st_Salvage].as_slice(),
+            EMissionWarning::WRN_PitJawColony => [EObjective::OBJ_1st_Facility].as_slice(),
             EMissionWarning::WRN_CaveLeechDen => [
                 EObjective::OBJ_1st_PointExtraction,
                 EObjective::OBJ_1st_Facility,
@@ -1271,6 +1277,9 @@ impl EMissionWarning {
             .as_slice(),
             EMissionWarning::WRN_RivalIncursion => {
                 [EObjective::OBJ_1st_Facility, EObjective::OBJ_1st_Escort].as_slice()
+            }
+            EMissionWarning::WRN_CoreCorruption => {
+                [EObjective::OBJ_1st_Escort, EObjective::OBJ_1st_Facility].as_slice()
             }
             _ => &[],
         }
